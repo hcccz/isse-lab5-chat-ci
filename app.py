@@ -244,9 +244,6 @@ def delete_message(conversation_id, message_id):
         return jsonify({"error": "会话不存在"}), 404
     if not any(m["id"] == message_id for m in conversation["messages"]):
         return jsonify({"error": "消息不存在"}), 404
-    conversation["messages"] = [
-        m for m in conversation["messages"] if m["id"] != message_id
-    ]
     save_data()
     return jsonify({"message": "删除成功"})
 
