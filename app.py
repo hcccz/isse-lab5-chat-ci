@@ -9,8 +9,9 @@ load_dotenv()
 
 DEEPSEEK_API_URL = "https://api.deepseek.com/chat/completions"
 DEEPSEEK_MODEL = "deepseek-chat"
-OLD_DATA_FILE = os.path.join("data", "messages.json")
-DATA_FILE = os.path.join("data", "conversations.json")
+DATA_DIR = os.environ.get("LAB5_DATA_DIR", "data")
+OLD_DATA_FILE = os.path.join(DATA_DIR, "messages.json")
+DATA_FILE = os.path.join(DATA_DIR, "conversations.json")
 
 app = Flask(__name__)
 app.json.ensure_ascii = False
@@ -250,6 +251,8 @@ def delete_message(conversation_id, message_id):
     return jsonify({"message": "删除成功"})
 
 
+load_data()
+
+
 if __name__ == "__main__":
-    load_data()
     app.run(port=5001, debug=True)
